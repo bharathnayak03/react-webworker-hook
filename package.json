@@ -1,15 +1,23 @@
 {
   "name": "react-web-worker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A react custom hook to deal with webworkers",
   "main": "lib/index.js",
   "author": "Bharath Nayak <bharathnayak03@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bharathnayak03/react-webworker-hook.git"
+  },
   "keywords": [
     "react",
     "web worker",
     "react-hooks"
   ],
+  "bugs": {
+    "url": "https://github.com/bharathnayak03/react-webworker-hook/issues"
+  },
+  "homepage": "https://github.com/bharathnayak03/react-webworker-hook#readme",
   "scripts": {
     "build": "babel src -d lib",
     "lint": "./node_modules/.bin/eslint src/**",
