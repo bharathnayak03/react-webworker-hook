@@ -1,5 +1,5 @@
 {
-  "name": "react-web-worker",
+  "name": "react-webworker-hook",
   "version": "0.2.0",
   "description": "A react custom hook to deal with webworkers",
   "main": "lib/index.js",
