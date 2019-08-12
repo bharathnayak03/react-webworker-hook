@@ -1,6 +1,6 @@
 {
   "name": "react-webworker-hook",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A react custom hook to deal with webworkers",
   "main": "lib/index.js",
   "author": "Bharath Nayak <bharathnayak03@gmail.com>",
