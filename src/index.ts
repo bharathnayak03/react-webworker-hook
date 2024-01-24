@@ -1,14 +1,16 @@
-// @flow
 import { useState, useEffect, useRef } from 'react';
 
-function useWebWorker(config: { url?: string, worker?: Worker}) {
+function useWebWorker(config: { url?: string, worker?: Worker }) {
   const {
     url,
     worker: workerContext,
   } = config;
-  const workerContainer = useRef({});
+  const workerContainer = useRef<{
+    worker?: Worker,
+    shouldTerminate?: boolean,
+  }>({});
 
-  const [message, setMessage] = useState({
+  const [message, setMessage] = useState<{ data: any, error: Error | string | undefined }>({
     data: undefined,
     error: undefined,
   });
@@ -32,7 +34,7 @@ function useWebWorker(config: { url?: string, worker?: Worker}) {
    */
   function onError(error: Error) {
     setMessage({
-      data: null,
+      data: undefined,
       error,
     });
   }
@@ -69,7 +71,10 @@ function useWebWorker(config: { url?: string, worker?: Worker}) {
 
     if (worker) {
       worker.addEventListener('message', onMessage);
-      worker.addEventListener('error', onError);
+      worker.addEventListener('error', (errorEvent) => {
+
+        onError(errorEvent.error)
+      });
     }
   }
 
@@ -99,12 +104,15 @@ function useWebWorker(config: { url?: string, worker?: Worker}) {
 
     if (worker) {
       worker.removeEventListener('message', onMessage);
-      worker.removeEventListener('error', onError);
+      worker.removeEventListener('error', (errorEvent) => {
+
+        onError(errorEvent.error)
+      });
 
       if (shouldTerminate) {
         worker.terminate();
       }
-      workerContainer.current = null;
+      workerContainer.current = {};
     }
   }
 
@@ -127,14 +135,17 @@ export const useWebWorkerFromUrl = (url: string) => useWebWorker({ url });
  * pass a string javascript script
  */
 export const useWebWorkerFromScript = (script: string) => {
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState<string>();
 
   useEffect(() => {
     const blob = new Blob([script], { type: 'text/javascript' });
     setUrl(window.URL.createObjectURL(blob));
 
     return () => {
-      window.URL.revokeObjectURL(url);
+
+      if (url) {
+        window.URL.revokeObjectURL(url);
+      }
     };
   }, [script]);
 
