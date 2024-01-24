@@ -7,7 +7,7 @@ npm install --save react-webworker-hook
 ```
 
 ### Usage
-a quick sample here https://codesandbox.io/s/lynkq4yy6l
+a quick sample here https://codesandbox.io/p/sandbox/react-webworker-hook-example-6xt8rm
 
 ```js
 import React, { useState } from "react";
