@@ -1,27 +1,25 @@
 module.exports = {
+  parser: "@typescript-eslint/parser",
   env: {
     browser: true,
     es6: true,
   },
   extends: [
     'airbnb',
-    'plugin:flowtype/recommended',
+    "plugin:@typescript-eslint/recommended"
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2018,
-    sourceType: 'module',
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
   plugins: [
     'react',
     'react-hooks',
-    'flowtype',
   ],
   rules: {
     "react-hooks/rules-of-hooks": "error",

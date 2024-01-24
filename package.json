@@ -1,8 +1,9 @@
 {
   "name": "react-webworker-hook",
-  "version": "0.3.0-alpha.0",
+  "version": "1.0.0",
   "description": "A react custom hook to deal with webworkers",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "author": "Bharath Nayak <bharathnayak03@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -19,29 +20,26 @@
   },
   "homepage": "https://github.com/bharathnayak03/react-webworker-hook#readme",
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline && tsc",
     "lint": "./node_modules/.bin/eslint src/**",
     "prepublish": "npm run build"
   },
   "peerdependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/preset-flow": "^7.0.0",
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.7",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.14.1",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-flowtype": "^3.4.2",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^1.2.0",
-    "flow-bin": "^0.94.0",
+    "eslint": "^8.56.0",
     "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "typescript": "^5.3.3"
   }
 }
