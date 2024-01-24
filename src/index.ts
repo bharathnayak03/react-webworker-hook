@@ -10,7 +10,7 @@ function useWebWorker(config: { url?: string, worker?: Worker }) {
     shouldTerminate?: boolean,
   }>({});
 
-  const [message, setMessage] = useState<{ data: any, error: Error | string | undefined }>({
+  const [message, setMessage] = useState<{ data: unknown, error: Error | string | undefined }>({
     data: undefined,
     error: undefined,
   });
@@ -19,7 +19,7 @@ function useWebWorker(config: { url?: string, worker?: Worker }) {
    *  OnMessage event handler
    *  which gets triggered when worker sends a message
    */
-  function onMessage(payload: { data: any }) {
+  function onMessage(payload: { data: unknown }) {
     const { data } = payload;
 
     setMessage({
@@ -72,8 +72,7 @@ function useWebWorker(config: { url?: string, worker?: Worker }) {
     if (worker) {
       worker.addEventListener('message', onMessage);
       worker.addEventListener('error', (errorEvent) => {
-
-        onError(errorEvent.error)
+        onError(errorEvent.error);
       });
     }
   }
@@ -81,7 +80,7 @@ function useWebWorker(config: { url?: string, worker?: Worker }) {
   /**
    *  postData message which posts data to the webworker
    */
-  function postData(data: any) {
+  function postData(data: unknown) {
     const { worker } = workerContainer.current;
 
     if (!worker) {
@@ -105,8 +104,7 @@ function useWebWorker(config: { url?: string, worker?: Worker }) {
     if (worker) {
       worker.removeEventListener('message', onMessage);
       worker.removeEventListener('error', (errorEvent) => {
-
-        onError(errorEvent.error)
+        onError(errorEvent.error);
       });
 
       if (shouldTerminate) {
@@ -142,7 +140,6 @@ export const useWebWorkerFromScript = (script: string) => {
     setUrl(window.URL.createObjectURL(blob));
 
     return () => {
-
       if (url) {
         window.URL.revokeObjectURL(url);
       }
