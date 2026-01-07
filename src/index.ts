@@ -40,6 +40,14 @@ function useWebWorker(config: { url?: string, worker?: Worker }) {
   }
 
   /**
+   *  OnErrorEvent handler for worker error events
+   *  Wraps onError to properly handle ErrorEvent objects
+   */
+  function onErrorEvent(errorEvent: ErrorEvent) {
+    onError(errorEvent.error);
+  }
+
+  /**
    *  if url is passed a new webworker is created using that url
    *  else it will use the worker which was passed in config
    */
@@ -71,9 +79,7 @@ function useWebWorker(config: { url?: string, worker?: Worker }) {
 
     if (worker) {
       worker.addEventListener('message', onMessage);
-      worker.addEventListener('error', (errorEvent) => {
-        onError(errorEvent.error);
-      });
+      worker.addEventListener('error', onErrorEvent);
     }
   }
 
@@ -103,9 +109,7 @@ function useWebWorker(config: { url?: string, worker?: Worker }) {
 
     if (worker) {
       worker.removeEventListener('message', onMessage);
-      worker.removeEventListener('error', (errorEvent) => {
-        onError(errorEvent.error);
-      });
+      worker.removeEventListener('error', onErrorEvent);
 
       if (shouldTerminate) {
         worker.terminate();
